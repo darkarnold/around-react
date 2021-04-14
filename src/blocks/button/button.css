@@ -1,0 +1,11 @@
+@import url("./_value/button_value_edit.css");
+@import url("./_value/button_value_add.css");
+@import url("./_value/button_value_save.css");
+@import url("./_value/button_value_close.css");
+@import url("./_value/button_value_disabled.css");
+
+.button {
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}

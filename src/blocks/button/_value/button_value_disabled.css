@@ -1,0 +1,8 @@
+.button_value_disabled {
+  opacity: 0.2;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #000;
+}

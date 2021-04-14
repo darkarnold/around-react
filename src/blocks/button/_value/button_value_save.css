@@ -1,0 +1,25 @@
+.button_value_save {
+  width: 358px;
+  margin: 48px 0 36px;
+  background-color: #000;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  height: 50px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.button_value_save:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 640px) {
+  .button_value_save {
+    width: 238px;
+    font-size: 14px;
+    height: 46px;
+    margin: 45px 0 25px;
+  }
+}

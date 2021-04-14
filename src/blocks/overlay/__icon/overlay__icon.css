@@ -1,0 +1,12 @@
+.overlay__icon {
+  background-image: url("../../../images/update-icon.svg");
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  cursor: pointer;
+}

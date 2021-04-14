@@ -1,0 +1,6 @@
+.place__name-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 25px 15px 25px 21px;
+}

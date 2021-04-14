@@ -1,0 +1,10 @@
+.place__like-icon_count {
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  display: block;
+  line-height: 1.2;
+  color: #000;
+  margin: 0;
+  min-width: 9px;
+}

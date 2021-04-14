@@ -1,0 +1,20 @@
+@import url("./__image/place__image.css");
+@import url("./__name-container/place__name-container.css");
+@import url("./__name/place__name.css");
+@import url("./__like-icon/place__like-icon.css");
+@import url("./__delete-icon/place__delete-icon.css");
+
+.place {
+  max-width: 282px;
+  min-height: 362px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+@media screen and (max-width: 1024px) {
+  .place {
+    margin: 0 auto;
+  }
+}

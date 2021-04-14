@@ -1,13 +1,16 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url("./vendor/normalize.css");
+@import url("./vendor/fonts/fonts.css");
+@import url("./blocks/page/page.css");
+@import url("./blocks/header/header.css");
+@import url("./blocks/main/main.css");
+@import url("./blocks/profile/profile.css");
+@import url("./blocks/button/button.css");
+@import url("./blocks/places/places.css");
+@import url("./blocks/place/place.css");
+@import url("./blocks/footer/footer.css");
+@import url("./blocks/popup/popup.css");
+@import url("./blocks/overlay/overlay.css");
+@import url("./blocks/popup/_opened/popup_opened.css");
+@import url("./blocks/place/__like-icon/_active/place__like-icon_active.css");
+@import url("./blocks/popup/__input/_type/popup__input_type_error.css");
+@import url("./blocks/place/__like-icon/_count/place__like-icon_count.css");

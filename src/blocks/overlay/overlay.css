@@ -1,0 +1,10 @@
+@import url("./__icon-container/overlay__icon-container.css");
+@import url("./__icon/overlay__icon.css");
+
+.overlay {
+  position: relative;
+}
+
+.overlay:hover .overlay__icon-container {
+  opacity: 0.8;
+}
