@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import avatar from "../images/jacques-cousteau.jpg";
 import api from "../utils/Api";
+import Card from "./Card";
 
 function Main(props) {
-  // state variables for username, description and avatar
+  // state variables for username, description and avatar and cards
   const [userName, setUserName] = useState("Jacques Cousteau");
   const [userDescription, setUserDescription] = useState("Explorer");
   const [userAvatar, setUserAvatar] = useState({
     backgroundImage: `url(${avatar})`,
   });
+  const [cards, setCards] = useState([]);
 
   // use effect hook to render user data from api call
   useEffect(() => {
@@ -22,7 +24,29 @@ function Main(props) {
       .catch((err) => {
         console.log(`${err}`);
       });
-  });
+  }, []);
+
+  // use effect hook to render card data from api call
+  useEffect(() => {
+    //render card data from api call
+    api
+      .getInitialCards()
+      .then((res) => {
+        const cards = res.map((card) => ({
+          id: card._id,
+          src: card.link,
+          name: card.name,
+          likes: card.likes.length,
+        }));
+
+        console.log("results", cards);
+
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }, []);
 
   return (
     <main className="main">
@@ -57,7 +81,19 @@ function Main(props) {
       </section>
 
       <section className="places">
-        <ul className="places__grid"></ul>
+        <ul className="places__grid">
+          {cards.map((card, id) => {
+            return (
+              <Card
+                key={id}
+                src={card.src}
+                name={card.name}
+                likes={card.likes}
+              />
+            );
+            //console.log("results", cards);
+          })}
+        </ul>
       </section>
     </main>
   );

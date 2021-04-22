@@ -37,6 +37,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
       />
+
       <Footer />
       <PopupWithForm
         className={`popup popup_type_edit-profile`}
