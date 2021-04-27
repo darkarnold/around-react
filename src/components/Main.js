@@ -89,6 +89,7 @@ function Main(props) {
                 src={card.src}
                 name={card.name}
                 likes={card.likes}
+                onClick={props.onCardClick(card)}
               />
             );
             //console.log("results", cards);

@@ -11,6 +11,13 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
+  // state variabble for selected card and useState Hook
+  const [selectedCard, setSelectedCard] = useState([]);
+
+  function handleCardClick() {
+    setSelectedCard(true);
+  }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -27,6 +34,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -36,6 +44,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
 
       <Footer />
@@ -130,7 +139,11 @@ function App() {
         title={"Are you sure ?"}
       />
 
-      <ImagePopup />
+      <ImagePopup
+        isOpen={selectedCard}
+        onClose={closeAllPopups}
+        className={"popup popup_type_display-image"}
+      />
     </div>
   );
 }
