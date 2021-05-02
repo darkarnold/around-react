@@ -39,8 +39,6 @@ function Main(props) {
           likes: card.likes.length,
         }));
 
-        console.log("results", cards);
-
         setCards(cards);
       })
       .catch((err) => {
@@ -84,15 +82,8 @@ function Main(props) {
         <ul className="places__grid">
           {cards.map((card, id) => {
             return (
-              <Card
-                key={id}
-                src={card.src}
-                name={card.name}
-                likes={card.likes}
-                onClick={props.onCardClick(card)}
-              />
+              <Card key={id} card={card} onCardClick={props.onCardClick} />
             );
-            //console.log("results", cards);
           })}
         </ul>
       </section>
