@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/around-react/static/css/main.34ec8dcd.chunk.css",
+    "main.js": "/around-react/static/js/main.9534e345.chunk.js",
+    "main.js.map": "/around-react/static/js/main.9534e345.chunk.js.map",
+    "runtime-main.js": "/around-react/static/js/runtime-main.97251a11.js",
+    "runtime-main.js.map": "/around-react/static/js/runtime-main.97251a11.js.map",
+    "static/js/2.ee33819e.chunk.js": "/around-react/static/js/2.ee33819e.chunk.js",
+    "static/js/2.ee33819e.chunk.js.map": "/around-react/static/js/2.ee33819e.chunk.js.map",
+    "static/js/3.717ba143.chunk.js": "/around-react/static/js/3.717ba143.chunk.js",
+    "static/js/3.717ba143.chunk.js.map": "/around-react/static/js/3.717ba143.chunk.js.map",
+    "index.html": "/around-react/index.html",
+    "static/css/main.34ec8dcd.chunk.css.map": "/around-react/static/css/main.34ec8dcd.chunk.css.map",
+    "static/js/2.ee33819e.chunk.js.LICENSE.txt": "/around-react/static/js/2.ee33819e.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/around-react/static/media/update-icon.ae1a976d.svg",
+    "static/media/Vector.c7581985.svg": "/around-react/static/media/Vector.c7581985.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.97251a11.js",
+    "static/js/2.ee33819e.chunk.js",
+    "static/css/main.34ec8dcd.chunk.css",
+    "static/js/main.9534e345.chunk.js"
+  ]
+}
