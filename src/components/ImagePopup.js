@@ -14,7 +14,11 @@ function ImagePopup(props) {
           aria-label="Close"
           onClick={props.onClose}
         ></button>
-        <img src={props.card.src} alt="#" className="popup__image" />
+        <img
+          src={props.card.src}
+          alt={props.card.name}
+          className="popup__image"
+        />
         <figcaption className="popup__image-title">
           {props.card.name}
         </figcaption>

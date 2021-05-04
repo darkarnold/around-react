@@ -14,7 +14,7 @@ function Card(props) {
       ></button>
       <img
         src={props.card.src}
-        alt="#"
+        alt={props.card.name}
         className="place__image"
         onClick={handleClick}
       />
