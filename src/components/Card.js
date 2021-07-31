@@ -1,6 +1,17 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card(props) {
+  // subscribe to currentUser context
+  const currentUser = React.useContext(CurrentUserContext);
+
+  // Checking if the current user is the owner of the current card
+  const isOwn = props.card._id === currentUser._id;
+
+  // Creating a variable which you'll then set in `className` for the delete button
+  const cardDeleteButtonClassName = `place__delete-icon ${
+    isOwn ? " " : "place_delete-icon_disabled"
+  }`;
   function handleClick() {
     props.onCardClick(props.card);
   }
@@ -8,7 +19,7 @@ function Card(props) {
   return (
     <li className="place">
       <button
-        className="place__delete-icon"
+        className={cardDeleteButtonClassName}
         aria-label="Delete"
         type="button"
       ></button>

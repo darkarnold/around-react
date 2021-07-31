@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from "react";
-import avatar from "../images/jacques-cousteau.jpg";
 import api from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  // state variables for username, description and avatar and cards
-  const [userName, setUserName] = useState("Jacques Cousteau");
-  const [userDescription, setUserDescription] = useState("Explorer");
-  const [userAvatar, setUserAvatar] = useState({
-    backgroundImage: `url(${avatar})`,
-  });
-  const [cards, setCards] = useState([]);
+  // subscribe to currentUser context
+  const currentUser = React.useContext(CurrentUserContext);
 
-  // use effect hook to render user data from api call
-  useEffect(() => {
-    api
-      .getUserData()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      });
-  }, []);
+  const [cards, setCards] = useState([]);
 
   // use effect hook to render card data from api call
   useEffect(() => {
@@ -52,7 +35,7 @@ function Main(props) {
         <div className="overlay">
           <div
             className="profile__avatar"
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></div>
           <div className="overlay__icon-container">
             <div className="overlay__icon" onClick={props.onEditAvatar}></div>
@@ -60,7 +43,7 @@ function Main(props) {
         </div>
         <div className="profile__info">
           <div className="profile__name-container">
-            <h1 className="profile__info-name">{userName}</h1>
+            <h1 className="profile__info-name">{currentUser.name}</h1>
             <button
               className="button button_value_edit"
               type="button"
@@ -68,7 +51,7 @@ function Main(props) {
               onClick={props.onEditProfile}
             ></button>
           </div>
-          <p className="profile__info-subtitle">{userDescription}</p>
+          <p className="profile__info-subtitle">{currentUser.about}</p>
         </div>
         <button
           className="button button_value_add"

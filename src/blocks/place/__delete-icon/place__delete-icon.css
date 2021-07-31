@@ -15,3 +15,7 @@
 .place__delete-icon:hover {
   opacity: 0.6;
 }
+
+.place__delete-icon_disabled {
+  display: none;
+}
