@@ -12,8 +12,20 @@ function Card(props) {
   const cardDeleteButtonClassName = `place__delete-icon ${
     isOwn ? " " : "place_delete-icon_disabled"
   }`;
+
+  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+  // Create a variable which you then set in `className` for the like button
+  const cardLikeButtonClassName = `place__like-icon ${
+    isLiked ? "place__like-icon_active" : "place__like-icon"
+  }`;
+
   function handleClick() {
     props.onCardClick(props.card);
+  }
+
+  // handle Card likes
+  function handleLikeClick() {
+    props.onCardLike(props.card);
   }
 
   return (
@@ -33,11 +45,12 @@ function Card(props) {
         <h2 className="place__name">{props.card.name}</h2>
         <div className="place_like-container">
           <button
-            className="place__like-icon"
+            className={cardLikeButtonClassName}
             aria-label="Like"
             type="button"
+            onClick={handleLikeClick}
           ></button>
-          <p className="place__like-icon_count">{props.card.likes}</p>
+          <p className="place__like-icon_count">{props.card.likes.length}</p>
         </div>
       </div>
     </li>

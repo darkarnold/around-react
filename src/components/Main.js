@@ -19,7 +19,7 @@ function Main(props) {
           id: card._id,
           src: card.link,
           name: card.name,
-          likes: card.likes.length,
+          likes: card.likes,
         }));
 
         setCards(cards);
@@ -28,7 +28,22 @@ function Main(props) {
         console.log(`${err}`);
       });
   }, []);
+  //console.log(cards.likes);
+  // handle card likes
+  function handleCardLike(card) {
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
   return (
     <main className="main">
       <section className="profile">
@@ -65,7 +80,12 @@ function Main(props) {
         <ul className="places__grid">
           {cards.map((card, id) => {
             return (
-              <Card key={id} card={card} onCardClick={props.onCardClick} />
+              <Card
+                key={id}
+                card={card}
+                onCardClick={props.onCardClick}
+                onCardLike={handleCardLike}
+              />
             );
           })}
         </ul>

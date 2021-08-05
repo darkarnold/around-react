@@ -91,6 +91,15 @@ class Api {
       headers: this._headers,
     }).then(responseHandler);
   }
+
+  // Change the status of a like on a card
+  changeLikeCardStatus(cardId, likeStatus) {
+    if (likeStatus) {
+      return this.addLikes(cardId);
+    } else {
+      return this.deleteLikes(cardId);
+    }
+  }
 }
 
 const api = new Api({
