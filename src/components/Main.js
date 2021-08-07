@@ -16,8 +16,8 @@ function Main(props) {
       .getInitialCards()
       .then((res) => {
         const cards = res.map((card) => ({
-          id: card._id,
-          src: card.link,
+          _id: card._id,
+          link: card.link,
           name: card.name,
           likes: card.likes,
         }));
@@ -28,7 +28,7 @@ function Main(props) {
         console.log(`${err}`);
       });
   }, []);
-  //console.log(cards.likes);
+
   // handle card likes
   function handleCardLike(card) {
     // Check one more time if this card was already liked
@@ -38,6 +38,20 @@ function Main(props) {
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+        console.log(newCard);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  // handle card delete
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        const newCards = cards.filter((c) => (c._id !== card._id ? c : null));
         setCards(newCards);
       })
       .catch((err) => {
@@ -85,6 +99,7 @@ function Main(props) {
                 card={card}
                 onCardClick={props.onCardClick}
                 onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
             );
           })}
