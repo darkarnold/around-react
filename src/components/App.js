@@ -7,6 +7,8 @@ import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+
 function App() {
   // state variable and useState Hooks for popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -61,7 +63,19 @@ function App() {
       .editProfile({ name, about })
       .then((res) => {
         setCurrentUser(res);
-        // closeAllPopups();
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function handleUpdateAvatar(avatar) {
+    api
+      .updateAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -84,6 +98,11 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <PopupWithForm
           className={`popup popup_type_add-place`}
@@ -115,25 +134,6 @@ function App() {
             name="image-link"
           />
           <span className="popup__input-error" id="url-input-error"></span>
-        </PopupWithForm>
-
-        <PopupWithForm
-          className={`popup popup_type_change-profile-picture`}
-          name={"change-profile-picture"}
-          title={"Change profile picture"}
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="url"
-            className="popup__input popup__input_val_url"
-            id="url-input-link"
-            value=""
-            required
-            placeholder="Image Link"
-            name="image-link"
-          />
-          <span className="popup__input-error" id="url-input-link-error"></span>
         </PopupWithForm>
 
         <PopupWithForm
