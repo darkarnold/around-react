@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 function App() {
   // state variable and useState Hooks for popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -18,7 +19,7 @@ function App() {
   //state variable for currentUser
   const [currentUser, setCurrentUser] = useState({});
 
-  // mount the currentUser using useEffect hook to render Uer data from api call
+  // mount the currentUser using useEffect hook to render User data from api call
   useEffect(() => {
     api
       .getUserData()
@@ -55,6 +56,18 @@ function App() {
     setIsImagePopupOpen(false);
   }
 
+  function handleUpdateUser({ name, about }) {
+    api
+      .editProfile({ name, about })
+      .then((res) => {
+        setCurrentUser(res);
+        // closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -67,40 +80,11 @@ function App() {
         />
 
         <Footer />
-        <PopupWithForm
-          className={`popup popup_type_edit-profile`}
-          name={"edit-profile"}
-          title={"Edit Profile"}
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            className="popup__input popup__input_val_name"
-            id="name-input"
-            value=""
-            required
-            placeholder="Jacques Costeau"
-            minlength="2"
-            maxlength="40"
-            name="name"
-          />
-          <span className="popup__input-error" id="name-input-error"></span>
-
-          <input
-            type="text"
-            className="popup__input popup__input_val_job"
-            id="job-input"
-            value=""
-            required
-            placeholder="Explorer"
-            minlength="2"
-            maxlength="200"
-            name="description"
-          />
-          <span className="popup__input-error" id="job-input-error"></span>
-        </PopupWithForm>
-
+          onUpdateUser={handleUpdateUser}
+        />
         <PopupWithForm
           className={`popup popup_type_add-place`}
           name={"new-place"}
@@ -115,8 +99,8 @@ function App() {
             value=""
             required
             placeholder="Title"
-            minlength="1"
-            maxlength="30"
+            minLength="1"
+            maxLength="30"
             name="image-text"
           />
           <span className="popup__input-error" id="title-input-error"></span>
