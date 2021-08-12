@@ -8,6 +8,7 @@ import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   // state variable and useState Hooks for popups
@@ -33,8 +34,60 @@ function App() {
       });
   }, []);
 
-  function handleCardClick({ name, src }) {
-    setSelectedCard({ name, src });
+  const [cards, setCards] = useState([]);
+
+  // use effect hook to render card data from api call
+  useEffect(() => {
+    //render card data from api call
+    api
+      .getInitialCards()
+      .then((res) => {
+        const cards = res.map((card) => ({
+          _id: card._id,
+          link: card.link,
+          name: card.name,
+          likes: card.likes,
+        }));
+
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }, []);
+
+  // handle card likes
+  function handleCardLike(card) {
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+        console.log(newCard);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  // handle card delete
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        const newCards = cards.filter((c) => (c._id !== card._id ? c : null));
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function handleCardClick({ name, link }) {
+    setSelectedCard({ name, link });
     setIsImagePopupOpen(true);
   }
 
@@ -50,19 +103,21 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function closeAllPopups() {
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setSelectedCard({});
-    setIsImagePopupOpen(false);
+  function closeAllPopups(event) {
+    if (event.target.classList.contains("popup")) {
+      setIsEditAvatarPopupOpen(false);
+      setIsEditProfilePopupOpen(false);
+      setIsAddPlacePopupOpen(false);
+      setSelectedCard({});
+      setIsImagePopupOpen(false);
+    }
   }
 
   function handleUpdateUser({ name, about }) {
     api
       .editProfile({ name, about })
-      .then((res) => {
-        setCurrentUser(res);
+      .then(() => {
+        setCurrentUser({ name, about });
         closeAllPopups();
       })
       .catch((err) => {
@@ -74,7 +129,20 @@ function App() {
     api
       .updateAvatar(avatar)
       .then((res) => {
+        console.log(res);
         setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function handleAddPlaceSubmit({ name, link }) {
+    api
+      .setnewCard({ name, link })
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -91,6 +159,9 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
         />
 
         <Footer />
@@ -104,37 +175,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <PopupWithForm
-          className={`popup popup_type_add-place`}
-          name={"new-place"}
-          title={"New place"}
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            className="popup__input popup__input_val_title"
-            id="title-input"
-            value=""
-            required
-            placeholder="Title"
-            minLength="1"
-            maxLength="30"
-            name="image-text"
-          />
-          <span className="popup__input-error" id="title-input-error"></span>
-
-          <input
-            type="url"
-            className="popup__input popup__input_val_link"
-            id="url-input"
-            value=""
-            required
-            placeholder="Image Link"
-            name="image-link"
-          />
-          <span className="popup__input-error" id="url-input-error"></span>
-        </PopupWithForm>
+          onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
 
         <PopupWithForm
           className={"popup popup_type_confirm-popup"}
