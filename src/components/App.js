@@ -125,9 +125,9 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(avatar) {
+  function handleUpdateAvatar({ avatar }) {
     api
-      .updateAvatar(avatar)
+      .updateAvatar({ avatar })
       .then((res) => {
         console.log(res);
         setCurrentUser(res);

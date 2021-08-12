@@ -7,6 +7,7 @@ function EditAvatarPopup(props) {
 
   // handle data submission to API
   function handleSubmit(e) {
+    console.log(e);
     e.preventDefault();
 
     props.onUpdateAvatar({
@@ -29,7 +30,6 @@ function EditAvatarPopup(props) {
         type="url"
         className="popup__input popup__input_val_url"
         id="url-input-link"
-        //value=""
         required
         placeholder="Image Link"
         name="image-link"

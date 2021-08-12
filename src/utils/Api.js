@@ -27,7 +27,8 @@ class Api {
   }
 
   // edit and update the profile info
-  editProfile(name, about) {
+  editProfile({ name, about }) {
+    console.log(name, about);
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -39,7 +40,8 @@ class Api {
   }
 
   // add new card to server
-  setnewCard(name, link) {
+  setnewCard({ name, link }) {
+    console.log(name, link);
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -52,7 +54,7 @@ class Api {
 
   //update profile picture
   //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
-  updateAvatar(avatar) {
+  updateAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
