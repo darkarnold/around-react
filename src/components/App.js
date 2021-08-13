@@ -47,6 +47,7 @@ function App() {
           link: card.link,
           name: card.name,
           likes: card.likes,
+          owner: card.owner,
         }));
 
         setCards(cards);
@@ -104,12 +105,13 @@ function App() {
   }
 
   function closeAllPopups(event) {
-    if (event.target.classList.contains("popup")) {
+    if (event && event.target.classList.contains("popup")) {
       setIsEditAvatarPopupOpen(false);
       setIsEditProfilePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setSelectedCard({});
       setIsImagePopupOpen(false);
+      event.target.classList.remove("popup");
     }
   }
 
@@ -129,7 +131,6 @@ function App() {
     api
       .updateAvatar({ avatar })
       .then((res) => {
-        console.log(res);
         setCurrentUser(res);
         closeAllPopups();
       })
