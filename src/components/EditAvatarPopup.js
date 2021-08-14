@@ -7,7 +7,6 @@ function EditAvatarPopup(props) {
 
   // handle data submission to API
   function handleSubmit(e) {
-    console.log(e);
     e.preventDefault();
 
     props.onUpdateAvatar({

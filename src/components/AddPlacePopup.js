@@ -39,13 +39,14 @@ function AddPlacePopup(props) {
         type="text"
         className="popup__input popup__input_val_title"
         id="title-input"
-        value={title}
+        value=""
         required
         placeholder="Title"
         minLength="1"
         maxLength="30"
         name="image-text"
         onChange={handleTitleChange}
+        //onFocus={(e) => (e.target.placeholder = "Title")}
       />
       <span className="popup__input-error" id="title-input-error"></span>
 

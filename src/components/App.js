@@ -42,15 +42,7 @@ function App() {
     api
       .getInitialCards()
       .then((res) => {
-        const cards = res.map((card) => ({
-          _id: card._id,
-          link: card.link,
-          name: card.name,
-          likes: card.likes,
-          owner: card.owner,
-        }));
-
-        setCards(cards);
+        setCards(res);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -105,25 +97,34 @@ function App() {
   }
 
   function closeAllPopups(event) {
-    if (event && event.target.classList.contains("popup")) {
+    if (
+      (event && event.target.classList.contains("button_value_close")) ||
+      event.target.classList.contains("popup")
+    ) {
       setIsEditAvatarPopupOpen(false);
       setIsEditProfilePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setSelectedCard({});
       setIsImagePopupOpen(false);
-      event.target.classList.remove("popup");
     }
   }
 
   function handleUpdateUser({ name, about }) {
     api
       .editProfile({ name, about })
-      .then(() => {
-        setCurrentUser({ name, about });
+      .then((res) => {
+        setCurrentUser({
+          name: res.name,
+          about: res.about,
+          avatar: res.avatar,
+        });
         closeAllPopups();
       })
       .catch((err) => {
         console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsEditProfilePopupOpen(false);
       });
   }
 
@@ -136,6 +137,9 @@ function App() {
       })
       .catch((err) => {
         console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsEditAvatarPopupOpen(false);
       });
   }
 
@@ -148,6 +152,9 @@ function App() {
       })
       .catch((err) => {
         console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsAddPlacePopupOpen(false);
       });
   }
 
