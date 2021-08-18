@@ -96,18 +96,28 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function closeAllPopups(event) {
-    if (
-      (event && event.target.classList.contains("button_value_close")) ||
-      event.target.classList.contains("popup")
-    ) {
-      setIsEditAvatarPopupOpen(false);
-      setIsEditProfilePopupOpen(false);
-      setIsAddPlacePopupOpen(false);
-      setSelectedCard({});
-      setIsImagePopupOpen(false);
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
+    setIsImagePopupOpen(false);
+  }
+
+  function closeByOverlay(event) {
+    if (event.target.classList.contains("popup_opened")) {
+      closeAllPopups();
+      console.log("hahaha");
     }
   }
+
+  // // use effect hook to close overlay
+  // useEffect(() => {
+  //   document.addEventListener("click", closeByOverlay);
+  //   return () => {
+  //     document.removeEventListener("click", closeByOverlay);
+  //   };
+  // });
 
   function handleUpdateUser({ name, about }) {
     api
@@ -177,6 +187,7 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          onCloseOverlay={closeByOverlay}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
