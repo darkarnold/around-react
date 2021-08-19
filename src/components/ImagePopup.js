@@ -5,7 +5,7 @@ function ImagePopup(props) {
       className={`popup popup_type_${props.name} ${
         props.isOpen ? "popup_opened" : ""
       }`}
-      onClick={props.onClose}
+      onClick={props.onCloseOverlay}
     >
       <figure className="popup__figure">
         <button

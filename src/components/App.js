@@ -104,6 +104,19 @@ function App() {
     setIsImagePopupOpen(false);
   }
 
+  // close popups using Escape key
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
   function closeByOverlay(event) {
     if (event.target.classList.contains("popup_opened")) {
       closeAllPopups();
@@ -204,6 +217,7 @@ function App() {
           onClose={closeAllPopups}
           card={selectedCard}
           className={"popup popup_type_display-image"}
+          onCloseOverlay={closeByOverlay}
         />
       </div>
     </CurrentUserContext.Provider>
