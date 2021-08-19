@@ -59,7 +59,7 @@ function App() {
       .then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
-        console.log(newCard);
+        //console.log(newCard);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -107,17 +107,8 @@ function App() {
   function closeByOverlay(event) {
     if (event.target.classList.contains("popup_opened")) {
       closeAllPopups();
-      console.log("hahaha");
     }
   }
-
-  // // use effect hook to close overlay
-  // useEffect(() => {
-  //   document.addEventListener("click", closeByOverlay);
-  //   return () => {
-  //     document.removeEventListener("click", closeByOverlay);
-  //   };
-  // });
 
   function handleUpdateUser({ name, about }) {
     api
@@ -193,11 +184,13 @@ function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          onCloseOverlay={closeByOverlay}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          onCloseOverlay={closeByOverlay}
         />
 
         <PopupWithForm
